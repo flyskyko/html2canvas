@@ -98,13 +98,13 @@ export const renderDottedLine = (
             context.moveTo(x1 + progress + offset, y1 + offset);
             context.arc(x1 + progress + offset, y1 + offset, r, 0, Math.PI * 2, true);
             context.fill();
-            context.closePath();
+            // context.closePath();
         } else {
             context.beginPath();
             context.moveTo(x1 + offset, y1 + progress + offset);
             context.arc(x1 + offset, y1 + progress - offset, r, 0, Math.PI * 2, true);
             context.fill();
-            context.closePath();
+            // context.closePath();
         }
         progress += (interval < 0 ? -(r * 2) : r * 2) + interval;
     }

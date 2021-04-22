@@ -491,13 +491,13 @@ export class CanvasRenderer {
         this.ctx.lineTo(0, this.canvas.height);
         this.ctx.lineTo(0, 0);
         this.formatPath(paths.slice(0).reverse());
-        this.ctx.closePath();
+        // this.ctx.closePath();
     }
 
     path(paths: Path[]) {
         this.ctx.beginPath();
         this.formatPath(paths);
-        this.ctx.closePath();
+        // this.ctx.closePath();
     }
 
     formatPath(paths: Path[]) {
@@ -701,7 +701,7 @@ export class CanvasRenderer {
             }
             this.ctx.lineTo(start.x, start.y);
             this.ctx.stroke();
-            this.ctx.closePath();
+            // this.ctx.closePath();
             cur = start;
         });
     }
