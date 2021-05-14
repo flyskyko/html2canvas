@@ -834,7 +834,6 @@ export class CanvasRenderer {
         const paths = parsePathForBorder(curvePoints, side);
         const data = parseWidthForDashedAndDottedBorder(paths, side);
         const diff = data.space > 1 ? data.space / 2 : 0;
-        const diff2 = data.space / 2;
         let width = data.width;
 
         if (side === 1 || side === 2) {
@@ -866,29 +865,29 @@ export class CanvasRenderer {
 
             if (index === 0) {
                 if (side === 0) {
-                    start.y += diff2;
+                    start.y += diff;
                 } else if (side === 1) {
-                    start.x -= diff2;
-                    start.y -= diff2;
+                    start.x -= diff;
+                    start.y -= diff;
                 } else if (side === 2) {
-                    start.x += diff2;
+                    start.x += diff;
                 } else if (side === 3) {
-                    start.x += diff2;
-                    start.y += diff2;
+                    start.x += diff;
+                    start.y += diff;
                 }
 
                 this.ctx.moveTo(start.x, start.y);
             } else if (index === 1) {
                 if (side === 0) {
-                    start.y += diff2;
+                    start.y += diff;
                 } else if (side === 1) {
-                    start.x -= diff2;
-                    start.y -= diff2;
+                    start.x -= diff;
+                    start.y -= diff;
                 } else if (side === 2) {
-                    start.y -= diff2;
+                    start.y -= diff;
                 } else if (side === 3) {
-                    start.x += diff2;
-                    start.y -= diff2;
+                    start.x += diff;
+                    start.y -= diff;
                 }
 
                 this.ctx.lineTo(start.x, start.y);
