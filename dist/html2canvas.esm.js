@@ -7059,12 +7059,13 @@ var CanvasRenderer = /** @class */ (function () {
     };
     CanvasRenderer.prototype.renderDashedBorder = function (color, side, curvePoints) {
         return __awaiter(this, void 0, void 0, function () {
-            var paths, data, diff, width, dash, dashAndSpace, dashCount, space;
+            var paths, data, diff, diff2, width, dash, dashAndSpace, dashCount, space;
             var _this = this;
             return __generator(this, function (_a) {
                 paths = parsePathForBorder(curvePoints, side);
                 data = parseWidthForDashedAndDottedBorder(paths, side);
                 diff = data.space > 1 ? data.space / 2 : 0;
+                diff2 = data.space / 2;
                 width = data.width;
                 if (side === 1 || side === 2) {
                     width += diff;
@@ -7076,7 +7077,7 @@ var CanvasRenderer = /** @class */ (function () {
                 if (data.space < 3) {
                     dash *= 1.5;
                 }
-                dashAndSpace = dash + data.space;
+                dashAndSpace = dash + (data.space < 3 ? data.space * 3 : data.space);
                 dashCount = Math.floor(width / dashAndSpace);
                 space = (width - dash * dashCount) / (dashCount - 1);
                 if (space > dash * 0.5) {
@@ -7089,35 +7090,35 @@ var CanvasRenderer = /** @class */ (function () {
                     var start = isBezierCurve(point) ? point.start : point;
                     if (index === 0) {
                         if (side === 0) {
-                            start.y += diff;
+                            start.y += diff2;
                         }
                         else if (side === 1) {
-                            start.x -= diff;
-                            start.y -= diff;
+                            start.x -= diff2;
+                            start.y -= diff2;
                         }
                         else if (side === 2) {
-                            start.x += diff;
+                            start.x += diff2;
                         }
                         else if (side === 3) {
-                            start.x += diff;
-                            start.y += diff;
+                            start.x += diff2;
+                            start.y += diff2;
                         }
                         _this.ctx.moveTo(start.x, start.y);
                     }
                     else if (index === 1) {
                         if (side === 0) {
-                            start.y += diff;
+                            start.y += diff2;
                         }
                         else if (side === 1) {
-                            start.x -= diff;
-                            start.y -= diff;
+                            start.x -= diff2;
+                            start.y -= diff2;
                         }
                         else if (side === 2) {
-                            start.y -= diff;
+                            start.y -= diff2;
                         }
                         else if (side === 3) {
-                            start.x += diff;
-                            start.y -= diff;
+                            start.x += diff2;
+                            start.y -= diff2;
                         }
                         _this.ctx.lineTo(start.x, start.y);
                     }
