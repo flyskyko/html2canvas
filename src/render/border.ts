@@ -75,6 +75,7 @@ export const renderDottedLine = (
     y1: number,
     x2: number,
     y2: number,
+    r: number,
     interval: number,
     context: CanvasRenderingContext2D,
     color: string,
@@ -91,7 +92,6 @@ export const renderDottedLine = (
     context.moveTo(x1, y1);
     context.fillStyle = color;
     let progress = 0;
-    const r = Math.abs(interval) / 2;
     while (Math.abs(len) > Math.abs(progress) + r + Math.abs(offset)) {
         if (isHorizontal) {
             context.beginPath();
@@ -106,7 +106,7 @@ export const renderDottedLine = (
             context.fill();
             context.closePath();
         }
-        progress += interval * 2;
+        progress += (interval < 0 ? -(r * 2) : r * 2) + interval;
     }
 };
 
