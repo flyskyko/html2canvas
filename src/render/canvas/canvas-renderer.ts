@@ -822,21 +822,35 @@ export class CanvasRenderer {
     async renderDashedBorder(color: Color, side: number, curvePoints: BoundCurves) {
         const paths = parsePathForBorder(curvePoints, side);
         const data = parseWidthForDashedAndDottedBorder(paths, side);
-        this.ctx.beginPath();
-        this.ctx.strokeStyle = asString(color);
-        let dash = data.space * 2;
-        let space = data.space;
+        const diff = data.space > 1 ? data.space / 2 : 0;
+        let width = data.width;
 
-        if (space < 3) {
-            dash *= 1.5;
-            space *= 2;
+        if (side === 1 || side === 2) {
+            width += diff;
+        } else if (side === 3) {
+            width += diff * 2;
         }
 
+        let dash = data.space * 2;
+
+        if (data.space < 3) {
+            dash *= 1.5;
+        }
+
+        const dashAndSpace = dash + data.space;
+        let dashCount = Math.floor(width / dashAndSpace);
+        let space = (width - dash * dashCount) / (dashCount - 1);
+
+        if (space > dash * 0.5) {
+            space = (width - dash * (dashCount + 1)) / dashCount;
+        }
+
+        this.ctx.beginPath();
         // this.ctx.lineDashOffset = 2 * dash;
         this.ctx.setLineDash([dash, space]);
+
         paths.forEach((point, index) => {
             const start: Vector = isBezierCurve(point) ? point.start : point;
-            const diff = data.space / 2;
 
             if (index === 0) {
                 if (side === 0) {
@@ -868,11 +882,14 @@ export class CanvasRenderer {
                 this.ctx.lineTo(start.x, start.y);
             }
         });
+        // this.ctx.closePath();
+
+        this.ctx.strokeStyle = asString(color);
+
         this.ctx.lineWidth = data.space;
         this.ctx.stroke();
         this.ctx.setLineDash([]);
-        this.ctx.restore();
-        this.ctx.closePath();
+        // this.ctx.restore();
     }
 
     async render(element: ElementContainer): Promise<HTMLCanvasElement> {
