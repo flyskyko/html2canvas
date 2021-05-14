@@ -834,6 +834,7 @@ export class CanvasRenderer {
         const paths = parsePathForBorder(curvePoints, side);
         const data = parseWidthForDashedAndDottedBorder(paths, side);
         const diff = data.space > 1 ? data.space / 2 : 0;
+        const diff2 = data.space / 2;
         let width = data.width;
 
         if (side === 1 || side === 2) {
@@ -848,7 +849,7 @@ export class CanvasRenderer {
             dash *= 1.5;
         }
 
-        const dashAndSpace = dash + data.space;
+        const dashAndSpace = dash + (data.space < 3 ? data.space * 3 : data.space);
         let dashCount = Math.floor(width / dashAndSpace);
         let space = (width - dash * dashCount) / (dashCount - 1);
 
@@ -865,29 +866,29 @@ export class CanvasRenderer {
 
             if (index === 0) {
                 if (side === 0) {
-                    start.y += diff;
+                    start.y += diff2;
                 } else if (side === 1) {
-                    start.x -= diff;
-                    start.y -= diff;
+                    start.x -= diff2;
+                    start.y -= diff2;
                 } else if (side === 2) {
-                    start.x += diff;
+                    start.x += diff2;
                 } else if (side === 3) {
-                    start.x += diff;
-                    start.y += diff;
+                    start.x += diff2;
+                    start.y += diff2;
                 }
 
                 this.ctx.moveTo(start.x, start.y);
             } else if (index === 1) {
                 if (side === 0) {
-                    start.y += diff;
+                    start.y += diff2;
                 } else if (side === 1) {
-                    start.x -= diff;
-                    start.y -= diff;
+                    start.x -= diff2;
+                    start.y -= diff2;
                 } else if (side === 2) {
-                    start.y -= diff;
+                    start.y -= diff2;
                 } else if (side === 3) {
-                    start.x += diff;
-                    start.y -= diff;
+                    start.x += diff2;
+                    start.y -= diff2;
                 }
 
                 this.ctx.lineTo(start.x, start.y);
