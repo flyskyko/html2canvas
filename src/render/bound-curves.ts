@@ -247,7 +247,7 @@ export class BoundCurves {
             brh > 0 || brv > 0
                 ? getCurvePoints(
                       bounds.left + Math.min(bottomWidth, bounds.width - borderLeftWidth),
-                      bounds.top + Math.min(rightHeight, bounds.height - borderTopWidth),
+                      bounds.top + Math.min(rightHeight, bounds.height - borderBottomWidth),
                       Math.max(0, brh - borderRightWidth),
                       Math.max(0, brv - borderBottomWidth),
                       CORNER.BOTTOM_RIGHT
@@ -260,7 +260,7 @@ export class BoundCurves {
             blh > 0 || blv > 0
                 ? getCurvePoints(
                       bounds.left + borderLeftWidth,
-                      bounds.top + Math.min(leftHeight, bounds.height - borderTopWidth),
+                      bounds.top + Math.min(leftHeight, bounds.height - borderBottomWidth),
                       Math.max(0, blh - borderLeftWidth),
                       Math.max(0, blv - borderBottomWidth),
                       CORNER.BOTTOM_LEFT
