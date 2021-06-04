@@ -534,12 +534,12 @@ var CanvasRenderer = /** @class */ (function () {
         this.ctx.lineTo(0, this.canvas.height);
         this.ctx.lineTo(0, 0);
         this.formatPath(paths.slice(0).reverse());
-        // this.ctx.closePath();
+        this.ctx.closePath();
     };
     CanvasRenderer.prototype.path = function (paths) {
         this.ctx.beginPath();
         this.formatPath(paths);
-        // this.ctx.closePath();
+        this.ctx.closePath();
     };
     CanvasRenderer.prototype.formatPath = function (paths) {
         var _this = this;
